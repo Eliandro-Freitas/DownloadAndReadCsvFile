@@ -32,6 +32,7 @@ public class Service
         using var streamWriter = new StreamWriter(Path.Combine(pathFile, fileName));
         using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
         csvWriter.WriteRecords(_pokemonDTO);
+        Console.WriteLine($"Arquivo: ({fileName}), salvo na pasta {pathFile}, contendo {_pokemonDTO.Count()} dados");
     }
 
     private void ParseToDTO()
