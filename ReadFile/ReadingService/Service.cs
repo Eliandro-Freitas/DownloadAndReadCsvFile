@@ -13,23 +13,32 @@ public class Service
     private readonly CultureInfo _cultureInfo = new("pt-BR");
     private IEnumerable<PokemonCsv> _pokemonCsv;
     private IEnumerable<PokemonDTO> _pokemonDTO;
-    private readonly CsvReader _csvReader;
-
-    public Service()
-    {
-    }
 
     public void Run(Stream stream)
     {
         FetchPokemonCsv(stream);
         ParseToDTO();
+        Save();
+    }
+
+    private void Save()
+    {
+        var fileName = "pokemonDto.csv";
+        var pathFile = @"C:\Temp";
+
+        if (!Directory.Exists(pathFile))
+            Directory.CreateDirectory(pathFile);
+
+        using var streamWriter = new StreamWriter(Path.Combine(pathFile, fileName));
+        using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
+        csvWriter.WriteRecords(_pokemonDTO);
     }
 
     private void ParseToDTO()
         => _pokemonDTO = _pokemonCsv.Select(ParseToDto);
 
     private static PokemonDTO ParseToDto(PokemonCsv pokemon)
-        => PokemonDTO.CreatePokemon(
+        => PokemonDTO.CreatePokemonDTO(
             int.Parse(pokemon.Id),
             pokemon.Name,
             pokemon.Type,

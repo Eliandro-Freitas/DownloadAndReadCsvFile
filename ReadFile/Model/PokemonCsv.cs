@@ -12,5 +12,5 @@ public class PokemonCsv
     public string  SpecialAttack { get; set; }
     public string  SpecialDefense { get; set; }
     public string  Speed { get; set; }
-    public string  Generation { get; set; }
+    public string Generation { get; set; }
 }

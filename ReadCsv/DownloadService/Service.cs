@@ -1,6 +1,5 @@
 ﻿using Download.Helper;
 using System.Net;
-using readFile = ReadFile.ReadingService.Service;
 
 namespace Download;
 
@@ -18,8 +17,6 @@ public class Service
         var stream = new MemoryStream(byteFile);
         var fileName = "pokemon.csv";
         _fileRepository.Writer(fileName, stream, filePath);
-        var service = new readFile();
-        service.Run(stream);
         Console.WriteLine($"Download do arquivo {fileName} finalizado.");
     }
 

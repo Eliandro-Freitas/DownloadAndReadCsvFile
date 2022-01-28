@@ -30,35 +30,34 @@ internal class PokemonDTO
     public int Speed { get; set; }
     public int Generation { get; set; }
 
-    public static PokemonDTO CreatePokemon(
+    public static PokemonDTO CreatePokemonDTO(
         int id,
         string name,
         string type,
         int attack,
         int defense,
         int speed,
-        string specialMove,
         int generation)
         => type.ToUpper().Trim() switch
         {
             "FIRE" => CreatePokemon(id, name, type, attack, defense, speed, generation)
-                        .SetSpecialAttack(specialAttack: attack + 5)
-                        .SetSpecialDefente(specialDefense: defense +10)
-                        .SetSpecialMove(specialMove),
+                        .SetSpecialAttack(specialAttack: attack + 15)
+                        .SetSpecialDefente(specialDefense: defense + 5)
+                        .SetSpecialMove(specialMove: "Fire Blast"),
 
             "WATER" => CreatePokemon(id, name, type, attack, defense, speed, generation)
                         .SetSpecialAttack(specialAttack: attack + 5)
-                        .SetSpecialDefente(specialDefense: defense + 10)
-                        .SetSpecialMove(specialMove),
+                        .SetSpecialDefente(specialDefense: defense + 15)
+                        .SetSpecialMove(specialMove: "Waterfall"),
 
             "GRASS" => CreatePokemon(id, name, type, attack, defense, speed, generation)
-                        .SetSpecialAttack(specialAttack: attack + 5)
+                        .SetSpecialAttack(specialAttack: attack + 10)
                         .SetSpecialDefente(specialDefense: defense + 10)
-                        .SetSpecialMove(specialMove),
+                        .SetSpecialMove(specialMove: "Giga Drain"),
             _ => CreatePokemon(id, name, type, attack, defense, speed, generation),
         };
 
-    public static PokemonDTO CreatePokemon(
+    private static PokemonDTO CreatePokemon(
         int id,
         string name,
         string type,
@@ -67,7 +66,7 @@ internal class PokemonDTO
         int speed,
         int generation)
     {
-        var pokemon =  new PokemonDTO(id, name, type, attack, defense, speed);
+        var pokemon = new PokemonDTO(id, name, type, attack, defense, speed);
         pokemon.SetGeneration(generation);
         return pokemon;
     }
@@ -80,7 +79,7 @@ internal class PokemonDTO
 
     private PokemonDTO SetSpecialDefente(int specialDefense)
     {
-        Defense = specialDefense;
+        SpecialDefense = specialDefense;
         return this;
     }
 
